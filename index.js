@@ -2,6 +2,7 @@ require('./Devices/ColorLEDBulb');
 require('./Devices/DeskLamp');
 require('./Devices/ColorLEDStrip');
 require('./Devices/CeilingLamp');
+require('./Devices/WhiteBulb');
 
 var fs = require('fs');
 var packageFile = require("./package.json");
@@ -98,6 +99,10 @@ ReYeelightPlatform.prototype = {
                     });
                 } else if(deviceCfg['type'] == "CeilingLamp") {
                     new CeilingLamp(this, deviceCfg).forEach(function(accessory, index, arr){
+                        myAccessories.push(accessory);
+                    });
+                } else if(deviceCfg['type'] == "WhiteBulb") {
+                    new WhiteBulb(this, deviceCfg).forEach(function(accessory, index, arr){
                         myAccessories.push(accessory);
                     });
                 }

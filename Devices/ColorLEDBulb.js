@@ -63,7 +63,7 @@ ColorLEDBulbServices.prototype.getServices = function() {
         .setCharacteristic(Characteristic.Model, "ColorLEDBulb")
         .setCharacteristic(Characteristic.SerialNumber, tokensan);
     services.push(infoService);   
-    var ColorLEDBulbService = new Service.Lightbulb(this.name);
+    var ColorLEDBulbService = this.Lampservice = new Service.Lightbulb(this.name);
     
     
     var ColorLEDBulbOnCharacteristic = ColorLEDBulbService.getCharacteristic(Characteristic.On);
@@ -158,6 +158,7 @@ ColorLEDBulbServices.prototype.getServices = function() {
     ColorLEDBulbService
         .addCharacteristic(Characteristic.Saturation)
         .on('get', function(callback) {
+            that.platform.log.error("[ReYeelight][ERROR]ColorLEDBulb - getSAT: " + this.sat);
             this.device.call("get_prop", ["sat"]).then(result => {
                 that.platform.log.debug("[ReYeelight][DEBUG]ColorLEDBulb - getSaturation: " + result);
                 this.sat = result[0];
@@ -171,6 +172,7 @@ ColorLEDBulbServices.prototype.getServices = function() {
             this.sat = value;
             rgb = this.ColourHelper.hsv2argb(parseFloat(this.hue/360), parseFloat(value/100), parseFloat(this.ct/100));
             that.platform.log.debug("[ReYeelight][ERROR]ColorLEDBulb - setSaturation " + rgb + " From Saturation " + value);
+            that.platform.log.error("[ReYeelight][ERROR]ColorLEDBulb - setSAT: " + this.sat);
             this.device.call("set_rgb", [rgb]).then(result => {
                 that.platform.log.debug("[ReYeelight][DEBUG]ColorLEDBulb - setSaturationResult: " + result);
                 if(result[0] === "ok") {

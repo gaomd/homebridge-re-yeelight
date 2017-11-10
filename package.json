@@ -1,6 +1,6 @@
 {
   "name": "homebridge-re-yeelight",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Mi Yeelight plugin for homebridge: https://github.com/nfarina/homebridge",
   "license": "GPLV3",
   "keywords": [
