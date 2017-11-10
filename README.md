@@ -55,6 +55,13 @@ npm install -g miio homebridge-re-yeelight
             "Name": "Ceiling Lamp",
             "updatetimer": true,
             "interval": 5
+        },{
+            "type": "WhiteBulb",
+            "ip": "192.168.50.xxx",
+            "token": "xxxxxxxxx",
+            "Name": "White Bulb",
+            "updatetimer": true,
+            "interval": 5
         }]
     }]
 ```
