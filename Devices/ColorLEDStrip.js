@@ -21,7 +21,7 @@ YeColorLEDStrip = function(platform, config) {
     
     this.accessories = {};
     if(this.config['Name'] && this.config['Name'] != "") {
-        this.accessories['WaterAccessory'] = new YeYeColorLEDStripServices(this);
+        this.accessories['LightAccessory'] = new YeColorLEDStripServices(this);
     }
     var accessoriesArr = this.obj2array(this.accessories);
     

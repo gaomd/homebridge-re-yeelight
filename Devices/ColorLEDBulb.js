@@ -21,7 +21,7 @@ YeColorLEDBulb = function(platform, config) {
     
     this.accessories = {};
     if(this.config['Name'] && this.config['Name'] != "") {
-        this.accessories['WaterAccessory'] = new YeColorLEDBulbServices(this);
+        this.accessories['LightAccessory'] = new YeColorLEDBulbServices(this);
     }
     var accessoriesArr = this.obj2array(this.accessories);
     
