@@ -86,23 +86,23 @@ ReYeelightPlatform.prototype = {
                 }
                 
                 if (deviceCfg['type'] == "ColorLEDBulb") {
-                    new ColorLEDBulb(this, deviceCfg).forEach(function(accessory, index, arr){
+                    new YeColorLEDBulb(this, deviceCfg).forEach(function(accessory, index, arr){
                         myAccessories.push(accessory);
                     });
                 } else if(deviceCfg['type'] == "DeskLamp") {
-                    new DeskLamp(this, deviceCfg).forEach(function(accessory, index, arr){
+                    new YeDeskLamp(this, deviceCfg).forEach(function(accessory, index, arr){
                         myAccessories.push(accessory);
                     });
                 } else if(deviceCfg['type'] == "ColorLEDStrip") {
-                    new ColorLEDStrip(this, deviceCfg).forEach(function(accessory, index, arr){
+                    new YeColorLEDStrip(this, deviceCfg).forEach(function(accessory, index, arr){
                         myAccessories.push(accessory);
                     });
                 } else if(deviceCfg['type'] == "CeilingLamp") {
-                    new CeilingLamp(this, deviceCfg).forEach(function(accessory, index, arr){
+                    new YeCeilingLamp(this, deviceCfg).forEach(function(accessory, index, arr){
                         myAccessories.push(accessory);
                     });
                 } else if(deviceCfg['type'] == "WhiteBulb") {
-                    new WhiteBulb(this, deviceCfg).forEach(function(accessory, index, arr){
+                    new YeWhiteBulb(this, deviceCfg).forEach(function(accessory, index, arr){
                         myAccessories.push(accessory);
                     });
                 }
