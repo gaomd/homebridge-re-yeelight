@@ -5,7 +5,7 @@ const inherits = require('util').inherits;
 const miio = require('miio');
 
 var Accessory, PlatformAccessory, Service, Characteristic, UUIDGen;
-ColorLEDStrip = function(platform, config) {
+YeColorLEDStrip = function(platform, config) {
     this.init(platform, config);
     
     Accessory = platform.Accessory;
@@ -21,7 +21,7 @@ ColorLEDStrip = function(platform, config) {
     
     this.accessories = {};
     if(this.config['Name'] && this.config['Name'] != "") {
-        this.accessories['WaterAccessory'] = new ColorLEDStripServices(this);
+        this.accessories['WaterAccessory'] = new YeYeColorLEDStripServices(this);
     }
     var accessoriesArr = this.obj2array(this.accessories);
     
@@ -30,9 +30,9 @@ ColorLEDStrip = function(platform, config) {
     
     return accessoriesArr;
 }
-inherits(ColorLEDStrip, Base);
+inherits(YeColorLEDStrip, Base);
 
-ColorLEDStripServices = function(dThis) {
+YeColorLEDStripServices = function(dThis) {
     this.device = dThis.device;
     this.name = dThis.config['Name'];
     this.token = dThis.config['token'];
@@ -53,7 +53,7 @@ ColorLEDStripServices = function(dThis) {
     this.ColourHelper = new ColourHelper();
 }
 
-ColorLEDStripServices.prototype.getServices = function() {
+YeColorLEDStripServices.prototype.getServices = function() {
     var that = this;
     var services = [];
     var tokensan = this.token.substring(this.token.length-8);
@@ -185,7 +185,7 @@ ColorLEDStripServices.prototype.getServices = function() {
     return services;
 }
 
-ColorLEDStripServices.prototype.updateTimer = function() {
+YeColorLEDStripServices.prototype.updateTimer = function() {
     if (this.updatetimere) {
         clearTimeout(this.timer);
         this.timer = setTimeout(function() {
@@ -197,7 +197,7 @@ ColorLEDStripServices.prototype.updateTimer = function() {
     }
 }
 
-ColorLEDStripServices.prototype.runTimer = function() {
+YeColorLEDStripServices.prototype.runTimer = function() {
     var that = this;
     this.device.call("get_prop", ["power","bright","ct","rgb","sat"]).then(result => {
         that.platform.log.debug("[ReYeelight][" + this.name + "][DEBUG]ColorLEDStrip - getPower: " + result[0]);

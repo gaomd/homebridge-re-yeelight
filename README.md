@@ -10,7 +10,7 @@ Thanks for [nfarina](https://github.com/nfarina)(the author of [homebridge](http
 2.DeskLamp(Yeelight台灯)  
 3.ColorLedStrip(Yeelight彩光灯带)  
 4.CeilingLamp(Yeelight吸顶灯)  
-5.WhiteBulb(Yeelight白光灯泡)  
+4.WhiteBulb(Yeelight白光灯泡)  
 
 ## Installation
 1. Install HomeBridge, please follow it's [README](https://github.com/nfarina/homebridge/blob/master/README.md).   
@@ -90,6 +90,10 @@ miio --discover --sync
 Wait until you get output.   
 For more information about token, please refer to [OpenMiHome](https://github.com/OpenMiHome/mihome-binary-protocol) and [miio](https://github.com/aholstenson/miio).   
 ## Version Logs 
+### 0.0.7
+1.fix the bug caused by class name
+### 0.0.6
+1.add support for WhiteBulb
 ### 0.0.5
 1.add support for CeilingLamp
 ### 0.0.4

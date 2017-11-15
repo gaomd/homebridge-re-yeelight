@@ -5,7 +5,7 @@ const inherits = require('util').inherits;
 const miio = require('miio');
 
 var Accessory, PlatformAccessory, Service, Characteristic, UUIDGen;
-WhiteBulb = function(platform, config) {
+YeWhiteBulb = function(platform, config) {
     this.init(platform, config);
     
     Accessory = platform.Accessory;
@@ -21,7 +21,7 @@ WhiteBulb = function(platform, config) {
     
     this.accessories = {};
     if(this.config['Name'] && this.config['Name'] != "") {
-        this.accessories['WaterAccessory'] = new WhiteBulbServices(this);
+        this.accessories['WaterAccessory'] = new YeWhiteBulbServices(this);
     }
     var accessoriesArr = this.obj2array(this.accessories);
     
@@ -30,9 +30,9 @@ WhiteBulb = function(platform, config) {
     
     return accessoriesArr;
 }
-inherits(WhiteBulb, Base);
+inherits(YeWhiteBulb, Base);
 
-WhiteBulbServices = function(dThis) {
+YeWhiteBulbServices = function(dThis) {
     this.device = dThis.device;
     this.name = dThis.config['Name'];
     this.token = dThis.config['token'];
@@ -53,7 +53,7 @@ WhiteBulbServices = function(dThis) {
     this.ColourHelper = new ColourHelper();
 }
 
-WhiteBulbServices.prototype.getServices = function() {
+YeWhiteBulbServices.prototype.getServices = function() {
     var that = this;
     var services = [];
     var tokensan = this.token.substring(this.token.length-8);
@@ -120,7 +120,7 @@ WhiteBulbServices.prototype.getServices = function() {
     return services;
 }
 
-WhiteBulbServices.prototype.updateTimer = function() {
+YeWhiteBulbServices.prototype.updateTimer = function() {
     if (this.updatetimere) {
         clearTimeout(this.timer);
         this.timer = setTimeout(function() {
@@ -132,7 +132,7 @@ WhiteBulbServices.prototype.updateTimer = function() {
     }
 }
 
-WhiteBulbServices.prototype.runTimer = function() {
+YeWhiteBulbServices.prototype.runTimer = function() {
     var that = this;
     this.device.call("get_prop", ["power","bright"]).then(result => {
         that.platform.log.debug("[ReYeelight][" + this.name + "][DEBUG]WhiteBulb - getPower: " + result[0]);

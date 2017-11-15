@@ -5,7 +5,7 @@ const inherits = require('util').inherits;
 const miio = require('miio');
 
 var Accessory, PlatformAccessory, Service, Characteristic, UUIDGen;
-ColorLEDBulb = function(platform, config) {
+YeColorLEDBulb = function(platform, config) {
     this.init(platform, config);
     
     Accessory = platform.Accessory;
@@ -21,7 +21,7 @@ ColorLEDBulb = function(platform, config) {
     
     this.accessories = {};
     if(this.config['Name'] && this.config['Name'] != "") {
-        this.accessories['WaterAccessory'] = new ColorLEDBulbServices(this);
+        this.accessories['WaterAccessory'] = new YeColorLEDBulbServices(this);
     }
     var accessoriesArr = this.obj2array(this.accessories);
     
@@ -30,9 +30,9 @@ ColorLEDBulb = function(platform, config) {
     
     return accessoriesArr;
 }
-inherits(ColorLEDBulb, Base);
+inherits(YeColorLEDBulb, Base);
 
-ColorLEDBulbServices = function(dThis) {
+YeColorLEDBulbServices = function(dThis) {
     this.device = dThis.device;
     this.name = dThis.config['Name'];
     this.token = dThis.config['token'];
@@ -53,7 +53,7 @@ ColorLEDBulbServices = function(dThis) {
     this.ColourHelper = new ColourHelper();
 }
 
-ColorLEDBulbServices.prototype.getServices = function() {
+YeColorLEDBulbServices.prototype.getServices = function() {
     var that = this;
     var services = [];
     var tokensan = this.token.substring(this.token.length-8);
@@ -189,7 +189,7 @@ ColorLEDBulbServices.prototype.getServices = function() {
     return services;
 }
 
-ColorLEDBulbServices.prototype.updateTimer = function() {
+YeColorLEDBulbServices.prototype.updateTimer = function() {
     if (this.updatetimere) {
         clearTimeout(this.timer);
         this.timer = setTimeout(function() {
@@ -201,7 +201,7 @@ ColorLEDBulbServices.prototype.updateTimer = function() {
     }
 }
 
-ColorLEDBulbServices.prototype.runTimer = function() {
+YeColorLEDBulbServices.prototype.runTimer = function() {
     var that = this;
     this.device.call("get_prop", ["power","bright","ct","rgb","sat"]).then(result => {
         that.platform.log.debug("[ReYeelight][" + this.name + "][DEBUG]ColorLEDBulb - getPower: " + result[0]);

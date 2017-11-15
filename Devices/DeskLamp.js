@@ -4,7 +4,7 @@ const inherits = require('util').inherits;
 const miio = require('miio');
 
 var Accessory, PlatformAccessory, Service, Characteristic, UUIDGen;
-DeskLamp = function(platform, config) {
+YeDeskLamp = function(platform, config) {
     this.init(platform, config);
     
     Accessory = platform.Accessory;
@@ -20,7 +20,7 @@ DeskLamp = function(platform, config) {
     
     this.accessories = {};
     if(this.config['Name'] && this.config['Name'] != "") {
-        this.accessories['LightAccessory'] = new DeskLampService(this);
+        this.accessories['LightAccessory'] = new YeDeskLampService(this);
     }
     var accessoriesArr = this.obj2array(this.accessories);
     
@@ -29,9 +29,9 @@ DeskLamp = function(platform, config) {
     
     return accessoriesArr;
 }
-inherits(DeskLamp, Base);
+inherits(YeDeskLamp, Base);
 
-DeskLampService = function(dThis) {
+YeDeskLampService = function(dThis) {
     this.device = dThis.device;
     this.name = dThis.config['Name'];
     this.token = dThis.config['token'];
@@ -48,7 +48,7 @@ DeskLampService = function(dThis) {
     }
 }
 
-DeskLampService.prototype.getServices = function() {
+YeDeskLampService.prototype.getServices = function() {
     var that = this;
     var services = [];
     var tokensan = this.token.substring(this.token.length-8);
@@ -59,9 +59,9 @@ DeskLampService.prototype.getServices = function() {
         .setCharacteristic(Characteristic.SerialNumber, tokensan);
     services.push(infoService);
     
-    var DeskLampServices = this.Lampservice = new Service.Lightbulb(this.name, "DeskLamp");
-    var DeskLampOnCharacteristic = DeskLampServices.getCharacteristic(Characteristic.On);
-    DeskLampServices
+    var YeDeskLampServices = this.Lampservice = new Service.Lightbulb(this.name, "DeskLamp");
+    var DeskLampOnCharacteristic = YeDeskLampServices.getCharacteristic(Characteristic.On);
+    YeDeskLampServices
         .addCharacteristic(Characteristic.ColorTemperature)
         .setProps({
             minValue: 50,
@@ -91,7 +91,7 @@ DeskLampService.prototype.getServices = function() {
                 callback(err);
             });
         }.bind(this));
-    DeskLampServices
+    YeDeskLampServices
         .addCharacteristic(Characteristic.Brightness)
         .on('get', function(callback) {
             this.device.call("get_prop", ["bright"]).then(result => {
@@ -119,7 +119,7 @@ DeskLampService.prototype.getServices = function() {
                 callback(null);
             }
         }.bind(this));
-    DeskLampServices
+    YeDeskLampServices
         .getCharacteristic(Characteristic.ColorTemperature)
         .on('get', function(callback) {
             this.device.call("get_prop", ["ct"]).then(result => {
@@ -156,11 +156,11 @@ DeskLampService.prototype.getServices = function() {
                 callback(err);
             });
         }.bind(this));
-    services.push(DeskLampServices);
+    services.push(YeDeskLampServices);
     return services;
 }
 
-DeskLampService.prototype.updateTimer = function() {
+YeDeskLampService.prototype.updateTimer = function() {
     if (this.updatetimere) {
         clearTimeout(this.timer);
         this.timer = setTimeout(function() {
@@ -172,7 +172,7 @@ DeskLampService.prototype.updateTimer = function() {
     }
 }
 
-DeskLampService.prototype.runTimer = function() {
+YeDeskLampService.prototype.runTimer = function() {
     var that = this;
     this.device.call("get_prop", ["power","bright","ct"]).then(result => {
         that.platform.log.debug("[ReYeelight][" + this.name + "][DEBUG]DeskLamp - getPower: " + result[0]);

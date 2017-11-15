@@ -4,7 +4,7 @@ const inherits = require('util').inherits;
 const miio = require('miio');
 
 var Accessory, PlatformAccessory, Service, Characteristic, UUIDGen;
-CeilingLamp = function(platform, config) {
+YeCeilingLamp = function(platform, config) {
     this.init(platform, config);
     
     Accessory = platform.Accessory;
@@ -20,7 +20,7 @@ CeilingLamp = function(platform, config) {
     
     this.accessories = {};
     if(this.config['Name'] && this.config['Name'] != "") {
-        this.accessories['LightAccessory'] = new CeilingLampService(this);
+        this.accessories['LightAccessory'] = new YeCeilingLampService(this);
     }
     var accessoriesArr = this.obj2array(this.accessories);
     
@@ -29,9 +29,9 @@ CeilingLamp = function(platform, config) {
     
     return accessoriesArr;
 }
-inherits(CeilingLamp, Base);
+inherits(YeCeilingLamp, Base);
 
-CeilingLampService = function(dThis) {
+YeCeilingLampService = function(dThis) {
     this.device = dThis.device;
     this.name = dThis.config['Name'];
     this.token = dThis.config['token'];
@@ -48,7 +48,7 @@ CeilingLampService = function(dThis) {
     }
 }
 
-CeilingLampService.prototype.getServices = function() {
+YeCeilingLampService.prototype.getServices = function() {
     var that = this;
     var services = [];
     var tokensan = this.token.substring(this.token.length-8);
@@ -59,9 +59,9 @@ CeilingLampService.prototype.getServices = function() {
         .setCharacteristic(Characteristic.SerialNumber, tokensan);
     services.push(infoService);
     
-    var CeilingLampServices = this.Lampservice = new Service.Lightbulb(this.name, "CeilingLamp");
-    var CeilingLampOnCharacteristic = CeilingLampServices.getCharacteristic(Characteristic.On);
-    CeilingLampServices
+    var YeCeilingLampServices = this.Lampservice = new Service.Lightbulb(this.name, "CeilingLamp");
+    var CeilingLampOnCharacteristic = YeCeilingLampServices.getCharacteristic(Characteristic.On);
+    YeCeilingLampServices
         .addCharacteristic(Characteristic.ColorTemperature)
         .setProps({
             minValue: 50,
@@ -91,7 +91,7 @@ CeilingLampService.prototype.getServices = function() {
                 callback(err);
             });
         }.bind(this));
-    CeilingLampServices
+    YeCeilingLampServices
         .addCharacteristic(Characteristic.Brightness)
         .on('get', function(callback) {
             this.device.call("get_prop", ["bright"]).then(result => {
@@ -119,7 +119,7 @@ CeilingLampService.prototype.getServices = function() {
                 callback(null);
             }
         }.bind(this));
-    CeilingLampServices
+    YeCeilingLampServices
         .getCharacteristic(Characteristic.ColorTemperature)
         .on('get', function(callback) {
             this.device.call("get_prop", ["ct"]).then(result => {
@@ -156,11 +156,11 @@ CeilingLampService.prototype.getServices = function() {
                 callback(err);
             });
         }.bind(this));
-    services.push(CeilingLampServices);
+    services.push(YeCeilingLampServices);
     return services;
 }
 
-CeilingLampService.prototype.updateTimer = function() {
+YeCeilingLampService.prototype.updateTimer = function() {
     if (this.updatetimere) {
         clearTimeout(this.timer);
         this.timer = setTimeout(function() {
@@ -172,7 +172,7 @@ CeilingLampService.prototype.updateTimer = function() {
     }
 }
 
-CeilingLampService.prototype.runTimer = function() {
+YeCeilingLampService.prototype.runTimer = function() {
     var that = this;
     this.device.call("get_prop", ["power","bright","ct"]).then(result => {
         that.platform.log.debug("[ReYeelight][" + this.name + "][DEBUG]CeilingLamp - getPower: " + result[0]);
