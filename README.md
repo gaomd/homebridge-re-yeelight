@@ -29,35 +29,35 @@ npm install -g miio homebridge-re-yeelight
         "platform": "ReYeelightPlatform",
         "deviceCfgs": [{
             "type": "ColorLEDBulb",
-            "ip": "192.168.50.xxx",
+            "id": "12345",
             "token": "xxxxxxxxx",
             "Name": "LED Bulb",
             "updatetimer": true,
             "interval": 5
         },{
             "type": "ColorLEDStrip",
-            "ip": "192.168.50.xxx",
+            "id": "12346",
             "token": "xxxxxxxxx",
             "Name": "LED Strip",
             "updatetimer": true,
             "interval": 5
         },{
             "type": "DeskLamp",
-            "ip": "192.168.50.xxx",
+            "id": "12347",
             "token": "xxxxxxxxx",
             "Name": "Desk Lamp",
             "updatetimer": true,
             "interval": 5
         },{
             "type": "CeilingLamp",
-            "ip": "192.168.50.xxx",
+            "id": "12348",
             "token": "xxxxxxxxx",
             "Name": "Ceiling Lamp",
             "updatetimer": true,
             "interval": 5
         },{
             "type": "WhiteBulb",
-            "ip": "192.168.50.xxx",
+            "id": "12349",
             "token": "xxxxxxxxx",
             "Name": "White Bulb",
             "updatetimer": true,
